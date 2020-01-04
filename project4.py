@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sat Dec 14 23:08:25 2019
 
 @author: sammy
 """
@@ -9,8 +8,9 @@ import torch
 import torch.nn as nn
 from torch.autograd import Variable
 import numpy as np
+import torch.nn.functional as F
 from sklearn.model_selection import train_test_split
-#from sklearn.metrics import accuracy_score
+
 
 #load dataset
 iris_data = load_iris()
@@ -37,15 +37,17 @@ labels_test_v = Variable(torch.FloatTensor(labels_test), requires_grad = False)
 #print(feature_test_v)
 
 class Net(nn.Module):
-    def __init__(self):
+      def __init__(self):
         super(Net, self).__init__()
-        self.h_layer = nn.Linear(4, 3)
-        self.s_layer = nn.Softmax()
-    def forward(self,x):
-        y = self.h_layer(x)
-        p = self.s_layer(y)
-        return p
+        self.h0 = nn.Linear(4,10)
+        self.out = nn.Linear(10,3)
 
+      def forward(self, x):
+        x = self.h0(x)
+        x = F.tanh(x)
+        x = self.out(x)
+        x = F.tanh(x)
+        return x
 ANN = Net()
 
 def _accuracy(targets,predict):
