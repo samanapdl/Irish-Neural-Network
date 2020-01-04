@@ -1,6 +1,6 @@
 Load the Iris data
 
-Break your data set into two parts: training and testing.
+Break data set into two parts: training and testing.
 
 Modify the ANN architecture, learning rate, and momentum parameters until you find a combination that you feel provides the best performance ON THE TRAINING DATA SET. 
 
